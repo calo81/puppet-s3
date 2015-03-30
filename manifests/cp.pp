@@ -1,13 +1,21 @@
 # Defining a type for copying a single file from s3
-define s3::cp ($source,$bucket,$owner,$group,$mode,$dest_path) {
+define s3::cp (
+  $source      = $s3::params::source,
+  $bucket      = $s3::params::bucket,
+  $owner       = $s3::params::owner,
+  $group       = $s3::params::group,
+  $mode        = $s3::params::mode,
+  $dest_path   = $s3::params::dest_path,
+  $environment = $s3::params::environment,
+)inherits s3::params {
   exec { "fetch ${name}":
-    path    => ['/usr/bin/','/usr/sbin/','/usr/local/bin'],
-    if defined(awscli){
+    path    => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
+    if $::awscli_version(defined) {
       command     => "aws s3 cp s3://${bucket}/${source}/${name} ${dest_path}/${name}",
-      environment =>  ['http_proxy=http://proxydirect.tycoelectronics.com:80','https_proxy=http://proxydirect.tycoelectronics.com:80','HTTP_PROXY=http://proxydirect.tycoelectronics.com:80','HTTPS_PROXY=http://proxydirect.tycoelectronics.com:80','no_proxy=169.254.169.254,localhost,127.0.0.1,.tycoelectronics.net,.tycoelectronics.com','NO_PROXY=169.254.169.254,localhost,127.0.0.1,.tycoelectronics.net,.tycoelectronics.com'],
+      environment => $environment, 
     else {
       command     => "curl https://s3.amazonaws.com/${bucket}/${source}/${name} -o ${dest_path}/${name}",
-      environment =>  ['http_proxy=http://proxydirect.tycoelectronics.com:80','https_proxy=http://proxydirect.tycoelectronics.com:80','HTTP_PROXY=http://proxydirect.tycoelectronics.com:80','HTTPS_PROXY=http://proxydirect.tycoelectronics.com:80','no_proxy=169.254.169.254,localhost,127.0.0.1,.tycoelectronics.net,.tycoelectronics.com','NO_PROXY=169.254.169.254,localhost,127.0.0.1,.tycoelectronics.net,.tycoelectronics.com'],
+      environment => $environment,
     }
   }
     creates => "${dest_path}/${name}",
