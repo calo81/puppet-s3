@@ -1,10 +1,12 @@
 # Define a type to copy a directory from S3
 define s3::sync($source,$bucket,$owner,$group,$mode,$dest_path) {
-  file { $dest_path:
-    ensure => 'directory',
-    owner  => $owner,
-    group  => $group,
-    mode   => $mode,
+  if ! defined(File["$dest_path"]){
+    file { $dest_path:
+      ensure => 'directory',
+      owner  => $owner,
+      group  => $group,
+      mode   => $mode,
+    }
   }
   exec { "fetch ${source}":
     path        => ['/usr/bin/','/usr/sbin/','/usr/local/bin'],
