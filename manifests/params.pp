@@ -14,5 +14,6 @@ class s3::params {
     'Debian' : {
       $awscli_path = '/usr/local/bin/aws'
     }
+    default : { }
   }
 }

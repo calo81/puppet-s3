@@ -8,7 +8,7 @@ class s3 (
   $dest_path     = $s3::params::dest_path,
   $install_tools = $s3::params::install_tools,
 )inherits s3::params{
-  if $install_tools = true {
+  if $install_tools == true {
     include 's3::install'
   }
 }
