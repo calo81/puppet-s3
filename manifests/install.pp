@@ -6,21 +6,8 @@ class s3::install (
   $proxy_pass    = $s3::params::proxy_pass,
   $awscli_path   = $s3::params::awscli_path,
 )inherits s3::params{
-  if $proxy_url != undef {
-    Package <| provider == 'gem' |> {
-      install_options => {
-        '--http-proxy' => $proxy_url,
-      }
-    }
-  }
   case $install_tools {
     true :  {
-      if ! defined(Package['aws-sdk']) {
-        package { 'aws-sdk':
-          ensure   => 'latest',
-          provider => 'gem',
-        }
-      }
       if ! defined(Package['python']) {
         package { 'python':
           ensure => 'installed',

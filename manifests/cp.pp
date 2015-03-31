@@ -7,15 +7,16 @@ define s3::cp (
   $mode,
   $dest_path,
   $environment,
+  $s3name = $name,
 ){
   exec { "fetch ${name}":
     path    => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
     if ${::awscli_version} != undef {
-      command     => "aws s3 cp s3://${bucket}/${source}/${name} ${dest_path}/${name}",
+      command     => "aws s3 cp s3://${bucket}/${source}/${s3name} ${dest_path}/${name}",
       environment => $environment, 
     }
     else {
-      command     => "curl https://s3.amazonaws.com/${bucket}/${source}/${name} -o ${dest_path}/${name}",
+      command     => "curl https://s3.amazonaws.com/${bucket}/${source}/${s3name} -o ${dest_path}/${name}",
       environment => $environment,
     }
     creates => "${dest_path}/${name}",

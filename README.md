@@ -5,13 +5,18 @@ This module is used to pull files from AWS S3 locations using the aws ruby SDK, 
 Usage:
  In the desired manifest, add 
 include s3
-
+class { 's3': }
+or to control installing the awscli
+class { s3:
+  include_tools => true,
+}
 Then declare resources:
 Single file:
-s3::cp { 'name of file to be copied':   <---- presently this command only supports naming the file locally with the same                                                         filename as exists on S3.
+s3::cp { 'name of file to be created':  
   bucket    => 's3 bucket location, in format s3://bucket_name',
   source    => 'path after bucket in s3',
   dest_path => 'path the file should be copied to locally',
+  s3name    => 'name of file on s3',
   owner     => 'owner_name',
   group     => 'group_name',
   mode      => 'mode',
