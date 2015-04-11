@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Phil Watts",
   "summary": "This module adds s3 download capability with file resource controls",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
   "source": "https://github.com/MarsuperMammal/puppet-s3.git",
   "project_page": "https://github.com/MarsuperMammal/puppet-s3",
   "issues_url": "https://github.com/MarsuperMammal/puppet-s3/issues",
