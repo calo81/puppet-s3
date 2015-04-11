@@ -1,6 +1,6 @@
 {
   "name": "marsupermammal-s3",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Phil Watts",
   "summary": "This module adds s3 download capability with file resource controls",
   "license": "Apache 2.0",
@@ -14,10 +14,11 @@
   {
   "operatingsystem":"RedHat|OracleLinux",
   "operatingsystemrelease":[ "6.0" ]
-  }
+  },
   {
   "operatingsystem":"Ubuntu",
   "operatingsystemrelease":[ "14.04" ]
   }
+  ]
 }
 
