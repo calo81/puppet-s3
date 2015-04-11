@@ -7,6 +7,10 @@ class s3::params {
   $group        = 'root'
   $mode         = '0644'
   $environment  = undef
+  $install_tools =
+  $proxy_url     = undef
+  $proxy_user    = undef
+  $proxy_pass    = undef
   case $::osfamily {
     'RedHat': {
       $awscli_path = '/usr/bin/aws'

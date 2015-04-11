@@ -1,11 +1,5 @@
 # Class to install the AWS CLI or AWS SDK
-class s3::install (
-  $install_tools = $s3::params::install_tools,
-  $proxy_url     = $s3::params::proxy_url,
-  $proxy_user    = $s3::params::proxy_user,
-  $proxy_pass    = $s3::params::proxy_pass,
-  $awscli_path   = $s3::params::awscli_path,
-)inherits s3::params{
+class s3::install inherits s3{
   case $install_tools {
     true :  {
       if ! defined(Package['python']) {
@@ -19,11 +13,20 @@ class s3::install (
         }
       }
       if $proxy_url != undef {
+       if $proxy_pass != undef {
+         exec { 'awscli w-proxy':
+           path    => ['/usr/bin','/usr/sbin','/bin','/sbin','/usr/local/bin'],
+           command => "pip --proxy ${proxy_user}:${proxy_pass}@${proxy_url} install awscli",
+           creates => $awscli_path,
+         }
+       }
+      else {
         exec { 'awscli w-proxy':
           path    => ['/usr/bin','/usr/sbin','/bin','/sbin','/usr/local/bin'],
           command => "pip --proxy ${proxy_url} install awscli",
           creates => $awscli_path,
         }
+      }
       }
       else {
         if ! defined(Package['awscli']) {

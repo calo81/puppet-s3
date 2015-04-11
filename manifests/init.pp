@@ -6,7 +6,10 @@ class s3 (
   $group         = $s3::params::group,
   $mode          = $s3::params::mode,
   $dest_path     = $s3::params::dest_path,
-  $install_tools = $s3::params::install_tools,
+  $proxy_url     = $s3::params::proxy_url,
+  $proxy_user    = $s3::params::proxy_user,
+  $proxy_pass    = $s3::params::proxy_pass,
+  $awscli_path   = $s3::params::awscli_path,
 )inherits s3::params{
   if $install_tools == true {
     include 's3::install'
