@@ -10,10 +10,10 @@ define s3::cp (
   $s3name = $name,
 ){
   exec { "fetch ${name}":
-    path    => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
+    path        => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
     command     => "aws s3 cp s3://${bucket}/${source}/${s3name} ${dest_path}/${name}",
-    environment => $environment, 
-    creates => "${dest_path}/${name}",
+    environment => $environment,
+    creates     => "${dest_path}/${name}",
   }->
   file { "${dest_path}/${name}":
     ensure => 'file',

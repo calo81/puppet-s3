@@ -13,13 +13,13 @@ class s3::install inherits s3{
         }
       }
       if $proxy_url != undef {
-       if $proxy_pass != undef {
-         exec { 'awscli w-proxy':
-           path    => ['/usr/bin','/usr/sbin','/bin','/sbin','/usr/local/bin'],
-           command => "pip --proxy ${proxy_user}:${proxy_pass}@${proxy_url} install awscli",
-           creates => $awscli_path,
-         }
-       }
+        if $proxy_pass != undef {
+          exec { 'awscli w-proxy':
+            path    => ['/usr/bin','/usr/sbin','/bin','/sbin','/usr/local/bin'],
+            command => "pip --proxy ${proxy_user}:${proxy_pass}@${proxy_url} install awscli",
+            creates => $awscli_path,
+          }
+        }
       else {
         exec { 'awscli w-proxy':
           path    => ['/usr/bin','/usr/sbin','/bin','/sbin','/usr/local/bin'],
