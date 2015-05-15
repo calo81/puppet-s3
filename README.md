@@ -1,4 +1,6 @@
-##WIP##
+Depricating this module. Turns out the wheel didn't need reinventing. Please see nanliu/staging.
+
+
 Function:
 This module is used to pull files from AWS S3 locations using the aws ruby SDK, aws cli, or curl mechanisms. It supports both single file and recursive directory sync. It also allows you to manage the files pulled from S3 with common parameters of the Puppet file resource, such as owner, group and mode.
 
