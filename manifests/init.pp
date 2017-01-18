@@ -11,7 +11,4 @@ class s3 (
   $proxy_pass    = $s3::params::proxy_pass,
   $awscli_path   = $s3::params::awscli_path,
 )inherits s3::params{
-  if $install_tools == true {
-    include 's3::install'
-  }
 }
