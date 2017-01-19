@@ -11,7 +11,7 @@ define s3::cp (
 ){
   exec { "fetch ${name}":
     path        => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
-    command     => "aws s3 cp s3://${bucket}/${source}/${s3name} tmp${dest_path}",
+    command     => "aws s3 cp s3://${bucket}/${source}/${s3name} /tmp${dest_path}",
     creates     => "/tmp/${dest_path}",
   }->
   file { "/tmp${dest_path}":
