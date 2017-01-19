@@ -11,9 +11,10 @@ define s3::cp (
 ){
   exec { "fetch ${name}":
     path        => ['/bin','/sbin','/usr/bin/','/usr/sbin/','/usr/local/bin'],
-    command     => "aws s3 cp s3://${bucket}/${source}/${s3name} /tmp${dest_path}",
+    command     => "aws s3 sync s3://${bucket}/${source}/ /tmp${dest_path} --exclude '*' --include '$s3name'",
+    logoutput   => true,
   }->
-  file { "/tmp${dest_path}":
+  file { "/tmp${dest_path}/${s3name}":
     ensure => 'file',
     owner  => $owner,
     group  => $group,
@@ -21,7 +22,7 @@ define s3::cp (
   }->
   
  file { "${dest_path}":
-    source => "/tmp${dest_path}",
+    source => "/tmp${dest_path}/${s3name}",
     owner  => $owner,
     group  => $group,
     mode   => $mode,
